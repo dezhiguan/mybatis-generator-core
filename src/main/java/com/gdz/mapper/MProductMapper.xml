@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gdz.mapper.MProductMapper" >
+  <resultMap id="BaseResultMap" type="com.gdz.dao.MProduct" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="product_type" property="productType" jdbcType="INTEGER" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="pay_mode" property="payMode" jdbcType="INTEGER" />
+    <result column="is_open" property="isOpen" jdbcType="INTEGER" />
+    <result column="brand_status" property="brandStatus" jdbcType="INTEGER" />
+    <result column="brands" property="brands" jdbcType="VARCHAR" />
+    <result column="room_price_start" property="roomPriceStart" jdbcType="INTEGER" />
+    <result column="room_price_end" property="roomPriceEnd" jdbcType="INTEGER" />
+    <result column="member_levels" property="memberLevels" jdbcType="VARCHAR" />
+    <result column="pay_types" property="payTypes" jdbcType="VARCHAR" />
+    <result column="refund_status" property="refundStatus" jdbcType="INTEGER" />
+    <result column="channels" property="channels" jdbcType="VARCHAR" />
+    <result column="effect_begin_time" property="effectBeginTime" jdbcType="TIMESTAMP" />
+    <result column="effect_end_time" property="effectEndTime" jdbcType="TIMESTAMP" />
+    <result column="bundle_ratio" property="bundleRatio" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ratio_left" property="ratioLeft" jdbcType="INTEGER" />
+    <result column="ratio_right" property="ratioRight" jdbcType="INTEGER" />
+    <result column="online_claim" property="onlineClaim" jdbcType="INTEGER" />
+    <result column="app_open_left" property="appOpenLeft" jdbcType="DOUBLE" />
+    <result column="app_open_right" property="appOpenRight" jdbcType="DOUBLE" />
+    <result column="is_insureroom_type" property="isInsureroomType" jdbcType="INTEGER" />
+    <result column="origin_name" property="originName" jdbcType="VARCHAR" />
+    <result column="supplier" property="supplier" jdbcType="INTEGER" />
+    <result column="shelf_type" property="shelfType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_id, product_name, status, product_type, sort_order, pay_mode, is_open, 
+    brand_status, brands, room_price_start, room_price_end, member_levels, pay_types, 
+    refund_status, channels, effect_begin_time, effect_end_time, bundle_ratio, update_time, 
+    ratio_left, ratio_right, online_claim, app_open_left, app_open_right, is_insureroom_type, 
+    origin_name, supplier, shelf_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gdz.dao.MProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from m_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from m_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from m_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdz.dao.MProduct" >
+    insert into m_product (id, product_id, product_name, 
+      status, product_type, sort_order, 
+      pay_mode, is_open, brand_status, 
+      brands, room_price_start, room_price_end, 
+      member_levels, pay_types, refund_status, 
+      channels, effect_begin_time, effect_end_time, 
+      bundle_ratio, update_time, ratio_left, 
+      ratio_right, online_claim, app_open_left, 
+      app_open_right, is_insureroom_type, origin_name, 
+      supplier, shelf_type)
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{productType,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, 
+      #{payMode,jdbcType=INTEGER}, #{isOpen,jdbcType=INTEGER}, #{brandStatus,jdbcType=INTEGER}, 
+      #{brands,jdbcType=VARCHAR}, #{roomPriceStart,jdbcType=INTEGER}, #{roomPriceEnd,jdbcType=INTEGER}, 
+      #{memberLevels,jdbcType=VARCHAR}, #{payTypes,jdbcType=VARCHAR}, #{refundStatus,jdbcType=INTEGER}, 
+      #{channels,jdbcType=VARCHAR}, #{effectBeginTime,jdbcType=TIMESTAMP}, #{effectEndTime,jdbcType=TIMESTAMP}, 
+      #{bundleRatio,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{ratioLeft,jdbcType=INTEGER}, 
+      #{ratioRight,jdbcType=INTEGER}, #{onlineClaim,jdbcType=INTEGER}, #{appOpenLeft,jdbcType=DOUBLE}, 
+      #{appOpenRight,jdbcType=DOUBLE}, #{isInsureroomType,jdbcType=INTEGER}, #{originName,jdbcType=VARCHAR}, 
+      #{supplier,jdbcType=INTEGER}, #{shelfType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdz.dao.MProduct" >
+    insert into m_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="sortOrder != null" >
+        sort_order,
+      </if>
+      <if test="payMode != null" >
+        pay_mode,
+      </if>
+      <if test="isOpen != null" >
+        is_open,
+      </if>
+      <if test="brandStatus != null" >
+        brand_status,
+      </if>
+      <if test="brands != null" >
+        brands,
+      </if>
+      <if test="roomPriceStart != null" >
+        room_price_start,
+      </if>
+      <if test="roomPriceEnd != null" >
+        room_price_end,
+      </if>
+      <if test="memberLevels != null" >
+        member_levels,
+      </if>
+      <if test="payTypes != null" >
+        pay_types,
+      </if>
+      <if test="refundStatus != null" >
+        refund_status,
+      </if>
+      <if test="channels != null" >
+        channels,
+      </if>
+      <if test="effectBeginTime != null" >
+        effect_begin_time,
+      </if>
+      <if test="effectEndTime != null" >
+        effect_end_time,
+      </if>
+      <if test="bundleRatio != null" >
+        bundle_ratio,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="ratioLeft != null" >
+        ratio_left,
+      </if>
+      <if test="ratioRight != null" >
+        ratio_right,
+      </if>
+      <if test="onlineClaim != null" >
+        online_claim,
+      </if>
+      <if test="appOpenLeft != null" >
+        app_open_left,
+      </if>
+      <if test="appOpenRight != null" >
+        app_open_right,
+      </if>
+      <if test="isInsureroomType != null" >
+        is_insureroom_type,
+      </if>
+      <if test="originName != null" >
+        origin_name,
+      </if>
+      <if test="supplier != null" >
+        supplier,
+      </if>
+      <if test="shelfType != null" >
+        shelf_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="sortOrder != null" >
+        #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="payMode != null" >
+        #{payMode,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="brandStatus != null" >
+        #{brandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="brands != null" >
+        #{brands,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPriceStart != null" >
+        #{roomPriceStart,jdbcType=INTEGER},
+      </if>
+      <if test="roomPriceEnd != null" >
+        #{roomPriceEnd,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevels != null" >
+        #{memberLevels,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypes != null" >
+        #{payTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null" >
+        #{refundStatus,jdbcType=INTEGER},
+      </if>
+      <if test="channels != null" >
+        #{channels,jdbcType=VARCHAR},
+      </if>
+      <if test="effectBeginTime != null" >
+        #{effectBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectEndTime != null" >
+        #{effectEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bundleRatio != null" >
+        #{bundleRatio,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ratioLeft != null" >
+        #{ratioLeft,jdbcType=INTEGER},
+      </if>
+      <if test="ratioRight != null" >
+        #{ratioRight,jdbcType=INTEGER},
+      </if>
+      <if test="onlineClaim != null" >
+        #{onlineClaim,jdbcType=INTEGER},
+      </if>
+      <if test="appOpenLeft != null" >
+        #{appOpenLeft,jdbcType=DOUBLE},
+      </if>
+      <if test="appOpenRight != null" >
+        #{appOpenRight,jdbcType=DOUBLE},
+      </if>
+      <if test="isInsureroomType != null" >
+        #{isInsureroomType,jdbcType=INTEGER},
+      </if>
+      <if test="originName != null" >
+        #{originName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null" >
+        #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="shelfType != null" >
+        #{shelfType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdz.dao.MProduct" >
+    update m_product
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="sortOrder != null" >
+        sort_order = #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="payMode != null" >
+        pay_mode = #{payMode,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null" >
+        is_open = #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="brandStatus != null" >
+        brand_status = #{brandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="brands != null" >
+        brands = #{brands,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPriceStart != null" >
+        room_price_start = #{roomPriceStart,jdbcType=INTEGER},
+      </if>
+      <if test="roomPriceEnd != null" >
+        room_price_end = #{roomPriceEnd,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevels != null" >
+        member_levels = #{memberLevels,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypes != null" >
+        pay_types = #{payTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null" >
+        refund_status = #{refundStatus,jdbcType=INTEGER},
+      </if>
+      <if test="channels != null" >
+        channels = #{channels,jdbcType=VARCHAR},
+      </if>
+      <if test="effectBeginTime != null" >
+        effect_begin_time = #{effectBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectEndTime != null" >
+        effect_end_time = #{effectEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bundleRatio != null" >
+        bundle_ratio = #{bundleRatio,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ratioLeft != null" >
+        ratio_left = #{ratioLeft,jdbcType=INTEGER},
+      </if>
+      <if test="ratioRight != null" >
+        ratio_right = #{ratioRight,jdbcType=INTEGER},
+      </if>
+      <if test="onlineClaim != null" >
+        online_claim = #{onlineClaim,jdbcType=INTEGER},
+      </if>
+      <if test="appOpenLeft != null" >
+        app_open_left = #{appOpenLeft,jdbcType=DOUBLE},
+      </if>
+      <if test="appOpenRight != null" >
+        app_open_right = #{appOpenRight,jdbcType=DOUBLE},
+      </if>
+      <if test="isInsureroomType != null" >
+        is_insureroom_type = #{isInsureroomType,jdbcType=INTEGER},
+      </if>
+      <if test="originName != null" >
+        origin_name = #{originName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null" >
+        supplier = #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="shelfType != null" >
+        shelf_type = #{shelfType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdz.dao.MProduct" >
+    update m_product
+    set product_id = #{productId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      product_type = #{productType,jdbcType=INTEGER},
+      sort_order = #{sortOrder,jdbcType=INTEGER},
+      pay_mode = #{payMode,jdbcType=INTEGER},
+      is_open = #{isOpen,jdbcType=INTEGER},
+      brand_status = #{brandStatus,jdbcType=INTEGER},
+      brands = #{brands,jdbcType=VARCHAR},
+      room_price_start = #{roomPriceStart,jdbcType=INTEGER},
+      room_price_end = #{roomPriceEnd,jdbcType=INTEGER},
+      member_levels = #{memberLevels,jdbcType=VARCHAR},
+      pay_types = #{payTypes,jdbcType=VARCHAR},
+      refund_status = #{refundStatus,jdbcType=INTEGER},
+      channels = #{channels,jdbcType=VARCHAR},
+      effect_begin_time = #{effectBeginTime,jdbcType=TIMESTAMP},
+      effect_end_time = #{effectEndTime,jdbcType=TIMESTAMP},
+      bundle_ratio = #{bundleRatio,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ratio_left = #{ratioLeft,jdbcType=INTEGER},
+      ratio_right = #{ratioRight,jdbcType=INTEGER},
+      online_claim = #{onlineClaim,jdbcType=INTEGER},
+      app_open_left = #{appOpenLeft,jdbcType=DOUBLE},
+      app_open_right = #{appOpenRight,jdbcType=DOUBLE},
+      is_insureroom_type = #{isInsureroomType,jdbcType=INTEGER},
+      origin_name = #{originName,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=INTEGER},
+      shelf_type = #{shelfType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
